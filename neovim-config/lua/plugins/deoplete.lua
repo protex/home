@@ -1,0 +1,1 @@
+vim.call('deoplete#enable')

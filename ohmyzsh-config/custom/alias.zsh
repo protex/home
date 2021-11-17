@@ -1,0 +1,5 @@
+alias vim="nvim"
+alias vi="nvim"
+alias ls="ls -lAhG"
+alias resource="source ~/.zshrc"
+alias mux="tmuxinator"
