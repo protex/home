@@ -6,6 +6,12 @@ with builtins; {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  imports = [
+    ./nvim.nix
+    ./yabai.nix
+    ./skhd.nix
+  ];
+
   home = {
     stateVersion = "21.11";
     username = "pmggio";
@@ -44,21 +50,6 @@ with builtins; {
     };
   };
 
-  # Add my config
-  xdg.configFile.nvim = {
-    source = ./neovim-config;
-    recursive = true;
-  };
-
-  # Install vim plug
-  xdg.configFile."nvim/autoload/plug.vim" = {
-    source = pkgs.fetchFromGitHub {
-      owner = "junegunn";
-      repo = "vim-plug";
-      rev = "c9971346bb486ccff354aaee8606cc0d2d5a0c97";
-      sha256 = "UZnVrX6P+RFlFilPJawVlKu8qJoU3GzlQm9wuZ2YWnA=";
-    } + "/plug.vim";
-  };
 
   xdg.configFile.ohmyzsh = {
     source = ./ohmyzsh-config;
@@ -90,55 +81,5 @@ with builtins; {
   };
 
   home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
-
-  home.file."/Library/LaunchAgents/yabai.plist".text = ''
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>Disabled</key>
-        <false/>
-        <key>Label</key>
-        <string>yabai</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>${config.home.homeDirectory}/.nix-profile/bin/yabai</string>
-        </array>
-        <key>EnvironmentVariables</key>
-        <dict>
-            <key>PATH</key>
-            <string>${config.home.homeDirectory}/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
-        </dict>
-        <key>RunAtLoad</key>
-        <true/>
-    </dict>
-    </plist>
-  '';
-
-  home.file."/Library/LaunchAgents/skhd.plist".text = ''
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>Disabled</key>
-        <false/>
-        <key>Label</key>
-        <string>skhd</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>${config.home.homeDirectory}/.nix-profile/bin/skhd</string>
-        </array>
-        <key>EnvironmentVariables</key>
-        <dict>
-            <key>PATH</key>
-            <string>${config.home.homeDirectory}/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
-        </dict>
-        <key>RunAtLoad</key>
-        <true/>
-    </dict>
-    </plist>
-  '';
-  home.file."/.yabairc".source = ./yabai/.yabairc;
-  home.file."/.skhdrc".source = ./skhd/.skhdrc;
 
 }
