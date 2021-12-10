@@ -1,0 +1,7 @@
+[core]
+	excludesfile = /Users/pmggio/.gitignore
+[user]
+	email = peter.maggio@viasat.com
+	name = Peter Maggio
+[alias]
+	root = rev-parse --show-toplevel

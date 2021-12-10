@@ -1,5 +1,12 @@
 let 
+  pkgs = (import <nixpkgs> {});
   extraNodePackages = import ./node/default.nix { };
+  pip2nix = (import (pkgs.fetchFromGitHub{
+    owner="nix-community";
+    repo="pip2nix";
+    rev = "3ded07fcb8a4a491f36f1b8aac9c9c9c402d99fe";
+    sha256 = "CPcJRERr3vENqPvM6FsfxtAGw0/qgE7+0B/fBdNyDXM=";
+  } + "/release.nix") {}).pip2nix;
 in
 { config, pkgs, lib, ... }:
 with builtins; {
@@ -21,6 +28,7 @@ with builtins; {
       EDITOR = "nvim";
     };
     packages = with pkgs; [
+      nmap
       ripgrep
       tmux
       tmuxinator
@@ -31,10 +39,12 @@ with builtins; {
       nodejs-12_x
       nodePackages.node2nix
       extraNodePackages.lerna
+      extraNodePackages.localtunnel
       yabai
       skhd
       sshpass
       yarn
+      pip2nix.python39
     ];
   };
 
@@ -81,5 +91,7 @@ with builtins; {
   };
 
   home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
+  home.file.".gitignore".source = ./git/globalignore;
+  home.file.".gitconfig".source = ./git/globalconfig;
 
 }

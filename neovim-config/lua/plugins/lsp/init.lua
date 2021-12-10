@@ -54,15 +54,15 @@ local lsp_config = {
       server_name = 'jsonls'
     },
     python = {
-      server_name = 'pyright'
+      server_name = 'pyright',
     }
   }
 }
 
 local function get_server_config(server_name)
   local config = lsp_config.default_config
-  if(lsp_config.servers[server_name] ~= nil and lsp_config.servers[server_name].settings ~= nil) then
-    config.settings = lsp_config.servers[server_name].settings
+  if(lsp_config.servers[server_name] ~= nil) then
+    config = vim.tbl_deep_extend("force", config, lsp_config.servers[server_name])
   end
   return config
 end
