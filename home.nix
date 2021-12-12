@@ -1,12 +1,6 @@
 let 
   pkgs = (import <nixpkgs> {});
   extraNodePackages = import ./node/default.nix { };
-  pip2nix = (import (pkgs.fetchFromGitHub{
-    owner="nix-community";
-    repo="pip2nix";
-    rev = "3ded07fcb8a4a491f36f1b8aac9c9c9c402d99fe";
-    sha256 = "CPcJRERr3vENqPvM6FsfxtAGw0/qgE7+0B/fBdNyDXM=";
-  } + "/release.nix") {}).pip2nix;
 in
 { config, pkgs, lib, ... }:
 with builtins; {
@@ -43,7 +37,7 @@ with builtins; {
       skhd
       sshpass
       yarn
-      pip2nix.python39
+      neuron
     ];
   };
 
