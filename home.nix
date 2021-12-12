@@ -17,12 +17,11 @@ with builtins; {
     ./nvim.nix
     ./yabai.nix
     ./skhd.nix
+    ./user.nix
   ];
 
   home = {
     stateVersion = "21.11";
-    username = "pmggio";
-    homeDirectory = "/Users/pmggio";
 
     sessionVariables = {
       EDITOR = "nvim";
