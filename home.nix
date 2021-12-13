@@ -1,6 +1,16 @@
 let 
   pkgs = (import <nixpkgs> {});
   extraNodePackages = import ./node/default.nix { };
+  userConfig = import ./user.nix {};
+  gitConfig = import ./git/git.nix { userConfig = userConfig; };
+
+  neuronSrc = pkgs.fetchFromGitHub {
+    owner = "srid";
+    repo = "neuron";
+    rev = "10e3ea028c23e664e540d0460e9515bdf02ac51d";
+    sha256 = "tHvgitxpGDqtLfKEuw3zQcNKd5g0gv/LooAqLt9OKg0=";
+  };
+  neuronPkg = (import neuronSrc).default;
 in
 { config, pkgs, lib, ... }:
 with builtins; {
@@ -11,11 +21,13 @@ with builtins; {
     ./nvim.nix
     ./yabai.nix
     ./skhd.nix
-    ./user.nix
+    ./git/git.nix
   ];
 
   home = {
     stateVersion = "21.11";
+    homeDirectory = userConfig.homeDirectory;
+    username = userConfig.username;
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -37,7 +49,7 @@ with builtins; {
       skhd
       sshpass
       yarn
-      neuron
+      neuronPkg
     ];
   };
 
@@ -84,7 +96,5 @@ with builtins; {
   };
 
   home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
-  home.file.".gitignore".source = ./git/globalignore;
-  home.file.".gitconfig".source = ./git/globalconfig;
 
 }
