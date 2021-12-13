@@ -1,8 +1,9 @@
 let 
   pkgs = (import <nixpkgs> {});
+
   extraNodePackages = import ./node/default.nix { };
   userConfig = import ./user.nix {};
-  gitConfig = import ./git/git.nix { userConfig = userConfig; };
+  gitConfig = import ./git/git.nix {};
 
   neuronSrc = pkgs.fetchFromGitHub {
     owner = "srid";
@@ -11,6 +12,7 @@ let
     sha256 = "tHvgitxpGDqtLfKEuw3zQcNKd5g0gv/LooAqLt9OKg0=";
   };
   neuronPkg = (import neuronSrc).default;
+
 in
 { config, pkgs, lib, ... }:
 with builtins; {
