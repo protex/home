@@ -11,6 +11,7 @@
       <key>ProgramArguments</key>
       <array>
           <string>${config.home.homeDirectory}/.nix-profile/bin/skhd</string>
+          <string>--verbose</string>
       </array>
       <key>EnvironmentVariables</key>
       <dict>
@@ -20,13 +21,18 @@
       <key>RunAtLoad</key>
       <true/>
       <key>StandardOutPath</key>
-      <string>${config.home.homeDirectory}/log/skhd/skhd.out.log</string>
+      <string>${config.home.homeDirectory}/var/log/skhd/skhd.out.log</string>
       <key>StandardErrorPath</key>
-      <string>${config.home.homeDirectory}/log/skhd/skhd.err.log</string>
+      <string>${config.home.homeDirectory}/var/log/skhd/skhd.err.log</string>
       <key>ProcessType</key>
       <string>Interactive</string>
       <key>Nice</key>
       <integer>-20</integer>
+      <key>KeepAlive</key>
+      <dict>
+        <key>Crashed</key>
+        <true/>
+      </dict>
     </dict>
     </plist>
   '';

@@ -25,6 +25,9 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'protex/neuron.nvim', { 'branch': 'my_stable' }
 Plug 'protex/home-manager.nvim'
+Plug 'kristijanhusak/vim-dadbod', { 'branch': 'async-query' }
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'protex/better-digraphs.nvim', { 'branch': 'feature/get-this-working' }
 call plug#end()
 set updatetime=100
 

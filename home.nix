@@ -1,17 +1,11 @@
 let 
   pkgs = (import <nixpkgs> {});
 
-  extraNodePackages = import ./node/default.nix { };
   userConfig = import ./user.nix {};
   gitConfig = import ./git/git.nix {};
 
-  neuronSrc = pkgs.fetchFromGitHub {
-    owner = "srid";
-    repo = "neuron";
-    rev = "10e3ea028c23e664e540d0460e9515bdf02ac51d";
-    sha256 = "tHvgitxpGDqtLfKEuw3zQcNKd5g0gv/LooAqLt9OKg0=";
-  };
-  neuronPkg = (import neuronSrc).default;
+  neuronSrc = builtins.fetchTarball "https://github.com/srid/neuron/archive/10e3ea028c23e664e540d0460e9515bdf02ac51d.tar.gz";
+  neuronPkg = import neuronSrc;
 
 in
 { config, pkgs, lib, ... }:
@@ -43,15 +37,14 @@ with builtins; {
       reattach-to-user-namespace
       jq
       hexedit
-      nodejs-12_x
-      nodePackages.node2nix
-      extraNodePackages.lerna
-      extraNodePackages.localtunnel
       yabai
       skhd
       sshpass
       yarn
-      neuronPkg
+      neuronPkg.default
+      spotify-tui
+      dig
+      dive
     ];
   };
 

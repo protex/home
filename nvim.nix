@@ -14,4 +14,8 @@
       sha256 = "UZnVrX6P+RFlFilPJawVlKu8qJoU3GzlQm9wuZ2YWnA=";
     } + "/plug.vim";
   };
+
+  home.activation.vim = lib.hm.dag.entryAfter ["writeBoundry"] ''
+    $DRY_RUN_CMD nvim +"PlugClean --sync" +"PlugInstall --sync" +qa
+  '';
 }

@@ -6,11 +6,14 @@
     <dict>
       <key>Disabled</key>
       <false/>
+      <key>KeepAlive</key>
+      <true/>
       <key>Label</key>
       <string>yabai</string>
       <key>ProgramArguments</key>
       <array>
           <string>${config.home.homeDirectory}/.nix-profile/bin/yabai</string>
+          <string>--verbose</string>
       </array>
       <key>EnvironmentVariables</key>
       <dict>
@@ -20,9 +23,9 @@
       <key>RunAtLoad</key>
       <true/>
       <key>StandardOutPath</key>
-      <string>${config.home.homeDirectory}/log/yabai/yabai.out.log</string>
+      <string>${config.home.homeDirectory}/var/log/yabai/yabai.out.log</string>
       <key>StandardErrorPath</key>
-      <string>${config.home.homeDirectory}/log/yabai/yabai.err.log</string>
+      <string>${config.home.homeDirectory}/var/log/yabai/yabai.err.log</string>
       <key>ProcessType</key>
       <string>Interactive</string>
       <key>Nice</key>
