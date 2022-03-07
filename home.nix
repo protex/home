@@ -1,3 +1,4 @@
+{ config, pkgs, lib, darwin, xxd, Foundation, ... }:
 let 
   pkgs = (import <nixpkgs> {});
 
@@ -7,8 +8,19 @@ let
   neuronSrc = builtins.fetchTarball "https://github.com/srid/neuron/archive/10e3ea028c23e664e540d0460e9515bdf02ac51d.tar.gz";
   neuronPkg = import neuronSrc;
 
+  yabai-v4 = pkgs.stdenv.mkDerivation rec {
+    name = "yabai";
+    version = "4.0.0";
+
+    src = ./yabai;
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ./bin/yabai $out/bin/yabai
+    '';
+  };
+
 in
-{ config, pkgs, lib, ... }:
 with builtins; {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -18,6 +30,7 @@ with builtins; {
     ./yabai.nix
     ./skhd.nix
     ./git/git.nix
+    ./vault/vault.nix
   ];
 
   home = {
@@ -37,7 +50,7 @@ with builtins; {
       reattach-to-user-namespace
       jq
       hexedit
-      yabai
+      yabai-v4
       skhd
       sshpass
       yarn
@@ -45,19 +58,27 @@ with builtins; {
       spotify-tui
       dig
       dive
+      catimg
+      gnugrep # needed by direnv
+      vault
+      yq
+      asciinema
     ];
   };
 
-  programs = {
-    zsh = {
+  programs.zsh = {
+    enable = true;
+    oh-my-zsh = {
       enable = true;
-      oh-my-zsh = {
-        enable = true;
-        custom = "$HOME/.config/ohmyzsh/custom";
-        plugins = [ "git" "zsh-autosuggestions"];
-        theme = "robbyrussell";
-      };
+      custom = "$HOME/.config/ohmyzsh/custom";
+      plugins = [ "git" "zsh-autosuggestions"];
+      theme = "robbyrussell";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
 

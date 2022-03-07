@@ -15,7 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe' 
-Plug 'f-person/git-blame.nvim'
+" Plug 'f-person/git-blame.nvim'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'navarasu/onedark.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -27,7 +27,7 @@ Plug 'protex/neuron.nvim', { 'branch': 'my_stable' }
 Plug 'protex/home-manager.nvim'
 Plug 'kristijanhusak/vim-dadbod', { 'branch': 'async-query' }
 Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'protex/better-digraphs.nvim', { 'branch': 'feature/get-this-working' }
+Plug 'protex/better-digraphs.nvim'
 call plug#end()
 set updatetime=100
 

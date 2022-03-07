@@ -1,3 +1,4 @@
 .nvmrc
 Session.vim
 *localignore*
+.direnv/

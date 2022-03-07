@@ -15,7 +15,7 @@
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
-        <string>~/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <string>~/.nix-profile/bin:/usr/local/bin</string>
     </dict>
     <key>RunAtLoad</key>
     <true/>

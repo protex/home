@@ -15,7 +15,7 @@
     } + "/plug.vim";
   };
 
-  home.activation.vim = lib.hm.dag.entryAfter ["writeBoundry"] ''
-    $DRY_RUN_CMD nvim +"PlugClean --sync" +"PlugInstall --sync" +qa
+  home.activation.nvim = lib.hm.dag.entryAfter ["writeBoundry"] ''
+    $DRY_RUN_CMD nvim --headless +'PlugClean!' +"PlugInstall --sync" +qa
   '';
 }
