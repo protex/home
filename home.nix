@@ -30,7 +30,6 @@ with builtins; {
     ./yabai.nix
     ./skhd.nix
     ./git/git.nix
-    ./vault/vault.nix
   ];
 
   home = {
