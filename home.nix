@@ -1,6 +1,12 @@
 { config, pkgs, lib, darwin, xxd, Foundation, ... }:
 let 
-  pkgs = (import <nixpkgs> {});
+  pkgs = (import <nixpkgs> {
+    overlays = [
+      (import (builtins.fetchTarball {
+        url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+      }))
+    ];
+  });
 
   userConfig = import ./user.nix {};
   gitConfig = import ./git/git.nix {};
@@ -20,6 +26,20 @@ let
     '';
   };
 
+  enpass-cli = pkgs.stdenv.mkDerivation rec {
+    name = "enpass-cli";
+    version = "1.4.0";
+
+    src = pkgs.fetchzip {
+      url = "https://github.com/hazcod/enpass-cli/releases/download/v${version}/enpass-cli_${version}_darwin_amd64.zip";
+      sha256 = "sha256-uKH09kKfci2mQpU5leqo4UnJV/CMakzim98NXjxMxM0=";
+    };
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ./enpasscli $out/bin/enpass
+    '';
+  };
 in
 with builtins; {
   # Let Home Manager install and manage itself.
@@ -45,7 +65,7 @@ with builtins; {
       ripgrep
       tmux
       tmuxinator
-      neovim
+      neovim-nightly
       reattach-to-user-namespace
       jq
       hexedit
@@ -62,6 +82,11 @@ with builtins; {
       vault
       yq
       asciinema
+      enpass-cli
+      (python39.withPackages (pp: with pp; [
+        pynvim
+      ]))
+      gcc
     ];
   };
 
