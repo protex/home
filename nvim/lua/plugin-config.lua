@@ -25,8 +25,3 @@ use 'tpope/vim-obsession'
 use 'neovim/nvim-lspconfig'
 use 'williamboman/nvim-lsp-installer'
 use 'junegunn/fzf.vim'
-
--- Automatically sync if we just installed
-if packer_bootstrap then
-  require('packer').sync()
-end
