@@ -6,6 +6,6 @@
   };
 
   home.activation.nvim = lib.hm.dag.entryAfter ["writeBoundry"] ''
-    $DRY_RUN_CMD nvim --headless -c 'lua require "plugin-config"' -c 'autocmd User PackerComplete quitall' -u NONE
+    $DRY_RUN_CMD nvim --headless -c 'autocmd User PackerComplete quitall' -c 'lua require "plugin-config"' -c "PackerSync" -u NONE
   '';
 }
