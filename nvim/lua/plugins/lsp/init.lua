@@ -1,4 +1,3 @@
-local lspinstall = require('nvim-lsp-installer')
 local lspservers = require'nvim-lsp-installer.servers'
 
 local on_attach = function(client, bufnr)
