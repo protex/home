@@ -1,4 +1,5 @@
 highlight ColorColumn ctermbg=0 guibg=maroon
+colorscheme onedark
 augroup test2
   au!
   au BufEnter * call matchadd('ColorColumn', '\%81v', 100)
@@ -17,7 +18,6 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 end
-colorscheme onedark
 let g:terminal_color_8 = "#56637c"
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none

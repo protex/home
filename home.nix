@@ -1,18 +1,15 @@
 { config, pkgs, lib, darwin, xxd, Foundation, ... }:
 let 
   pkgs = (import <nixpkgs> {
-    overlays = [
-      (import (builtins.fetchTarball {
-        url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-      }))
-    ];
+    # overlays = [
+    #   (import (builtins.fetchTarball {
+    #     url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    #   }))
+    # ];
   });
 
   userConfig = import ./user.nix {};
   gitConfig = import ./git/git.nix {};
-
-  neuronSrc = builtins.fetchTarball "https://github.com/srid/neuron/archive/10e3ea028c23e664e540d0460e9515bdf02ac51d.tar.gz";
-  neuronPkg = import neuronSrc;
 
   yabai-v4 = pkgs.stdenv.mkDerivation rec {
     name = "yabai";
@@ -65,7 +62,7 @@ with builtins; {
       ripgrep
       tmux
       tmuxinator
-      neovim-nightly
+      neovim #-nightly
       reattach-to-user-namespace
       jq
       hexedit
@@ -73,7 +70,6 @@ with builtins; {
       skhd
       sshpass
       yarn
-      neuronPkg.default
       spotify-tui
       dig
       dive
@@ -83,6 +79,7 @@ with builtins; {
       yq
       asciinema
       enpass-cli
+      gh
       (python39.withPackages (pp: with pp; [
         pynvim
       ]))
