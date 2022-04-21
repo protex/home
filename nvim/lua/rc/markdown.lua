@@ -1,7 +1,7 @@
-vim.api.nvim_create_user_command('ReplaceMarkdownHeaders', [[<Cmd>silent! %s/\\u\(\x\{4\}\)/\=nr2char("0x".submatch(1),1)/g<CR>]])
-vim.api.nvim_create_user_command('ConvertUnicode', [[silent! %s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g]])
+vim.api.nvim_create_user_command('ReplaceMarkdownHeaders', [[<Cmd>silent! %s/\\u\(\x\{4\}\)/\=nr2char("0x".submatch(1),1)/g<CR>]], {})
+vim.api.nvim_create_user_command('ConvertUnicode', [[silent! %s/\\u\(\x\{4\}\)/\=nr2char('0x'.submatch(1),1)/g]], {})
 
-vim.api.nvim_create_augroup('MarkdownGroup')
+vim.api.nvim_create_augroup('MarkdownGroup', {})
 vim.api.nvim_create_autocmd('InsertLeave', {
   pattern = "*.md",
   command = ":ReplaceMarkdownHeaders"
