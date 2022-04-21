@@ -2,10 +2,6 @@
 require 'plugin-config'
 
 -- Plugins
-vim.cmd 'source ~/.config/nvim/rc/plugins/picker.vim'
-vim.cmd 'source ~/.config/nvim/rc/plugins/align.vim'
-vim.cmd 'source ~/.config/nvim/rc/plugins/sneak.vim'
-vim.cmd 'source ~/.config/nvim/rc/plugins/git-blame.vim'
 require 'plugins.lsp.init'
 require 'plugins.tree-sitter'
 require 'plugins.telescope-config'
