@@ -14,6 +14,6 @@ require 'plugins.better-digraphs-config'
 
 -- General configuration
 require 'rc.display'
-vim.cmd 'source ~/.config/nvim/rc/viewcontrol.vim'
+require 'rc.viewcontrol'
 vim.cmd 'source ~/.config/nvim/rc/filetype/markdown.vim'
 vim.cmd 'source ~/.config/nvim/rc/generalmapping.vim'
