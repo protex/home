@@ -17,7 +17,7 @@ require 'plugins.telescope-config'
 --require 'plugins.dadbod'
 
 -- General configuration
-vim.cmd 'source ~/.config/nvim/rc/display.vim'
+require 'rc.display'
 vim.cmd 'source ~/.config/nvim/rc/viewcontrol.vim'
 vim.cmd 'source ~/.config/nvim/rc/filetype/markdown.vim'
 vim.cmd 'source ~/.config/nvim/rc/generalmapping.vim'
