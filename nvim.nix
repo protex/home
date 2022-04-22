@@ -5,17 +5,7 @@
     recursive = true;
   };
 
-  # Install vim plug
-  xdg.configFile."nvim/autoload/plug.vim" = {
-    source = pkgs.fetchFromGitHub {
-      owner = "junegunn";
-      repo = "vim-plug";
-      rev = "c9971346bb486ccff354aaee8606cc0d2d5a0c97";
-      sha256 = "UZnVrX6P+RFlFilPJawVlKu8qJoU3GzlQm9wuZ2YWnA=";
-    } + "/plug.vim";
-  };
-
   home.activation.nvim = lib.hm.dag.entryAfter ["writeBoundry"] ''
-    $DRY_RUN_CMD nvim --headless +'PlugClean!' +"PlugInstall --sync" +qa
+    $DRY_RUN_CMD nvim --headless -c 'autocmd User PackerComplete quitall' -c 'lua require "plugin-config"' -c "PackerSync" -u NONE
   '';
 }
