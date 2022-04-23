@@ -41,6 +41,7 @@ in
 with builtins; {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  launchd.enable = true;
 
   imports = [
     ./nvim.nix
