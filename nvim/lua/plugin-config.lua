@@ -26,6 +26,7 @@ use 'williamboman/nvim-lsp-installer'
 use 'junegunn/fzf.vim'
 use 'tpope/vim-obsessionm'
 use 'protex/better-digraphs.nvim'
+use 'protex/home-manager.nvim'
 use {
   'nvim-telescope/telescope.nvim',
   requires={
