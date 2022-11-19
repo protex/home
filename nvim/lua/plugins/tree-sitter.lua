@@ -1,7 +1,7 @@
 local configs = require("nvim-treesitter.configs")
 require 'nvim-treesitter.install'.compilers = {'gcc'}
 configs.setup {
-  ensure_installed = "all",
+  ensure_installed = {"javascript", "json", "lua", "python", "nix"},
   sync_install = false,
   ignore_install = { "" }, -- List of parsers to ignore installing
   highlight = {

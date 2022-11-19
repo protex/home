@@ -1,6 +1,10 @@
-local lspservers = require'nvim-lsp-installer.servers'
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', function() vim.diagnostic.open_float({border = "rounded"}) end, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-local on_attach = function(client, bufnr)
+local default_on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -21,15 +25,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>fo", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 local lsp_config = {
   default_config = {
-    on_attach = on_attach,
+    on_attach = default_on_attach,
     flags = {
       debounce_text_changes = 150
     }
@@ -52,33 +53,24 @@ local lsp_config = {
     json = {
       server_name = 'jsonls'
     },
-    python = {
-      server_name = 'pyright',
-    }
+    python_lsp = {
+      server_name = 'pylsp',
+    },
   }
 }
 
-local function get_server_config(server_name)
+local function get_server_config(config_name)
   local config = lsp_config.default_config
-  if(lsp_config.servers[server_name] ~= nil) then
-    config = vim.tbl_deep_extend("force", config, lsp_config.servers[server_name])
+  if(lsp_config.servers[config_name] ~= nil) then
+    config = vim.tbl_deep_extend("force", config, lsp_config.servers[config_name])
   end
   return config
 end
 
--- Setup servers or install if they aren't installed
+-- Setup servers, will be auto installed by mason-lspconfig
 for config_name, server_config in pairs(lsp_config.servers) do
-  local server_name = server_config.server_name
-  local server_available, requested_server = lspservers.get_server(server_name)
-  if server_available then
-    requested_server:on_ready(function ()
-      local config = get_server_config(config_name)
-      requested_server:setup(config)
-    end)
-    if not requested_server:is_installed() then
-      -- Queue the server to be installed
-      requested_server:install()
-    end
-  end
+  require('lspconfig')[server_config.server_name].setup(
+    get_server_config(config_name)
+  )
 end
 

@@ -8,6 +8,15 @@ let
     # ];
   });
 
+  login_password = pkgs.stdenv.mkDerivation rec {
+    name = "login_password";
+    src = ./bin;
+    installPhase = ''
+    mkdir -p $out/bin
+    cp ./login_password $out/bin/login_password
+    '';
+  };
+
   userConfig = import ./user.nix {};
   gitConfig = import ./git/git.nix {};
 
@@ -25,11 +34,11 @@ let
 
   enpass-cli = pkgs.stdenv.mkDerivation rec {
     name = "enpass-cli";
-    version = "1.4.0";
+    version = "1.6.0";
 
     src = pkgs.fetchzip {
       url = "https://github.com/hazcod/enpass-cli/releases/download/v${version}/enpass-cli_${version}_darwin_amd64.zip";
-      sha256 = "sha256-uKH09kKfci2mQpU5leqo4UnJV/CMakzim98NXjxMxM0=";
+      sha256 = "sha256-z6GLR9vo8jC0SrsacbMtoedVnXQP/Pq3GQ0jzuKxIxE=";
     };
 
     installPhase = ''
@@ -59,34 +68,48 @@ with builtins; {
       EDITOR = "nvim";
     };
     packages = with pkgs; [
+      nixUnstable
+      nix-prefetch-scripts
+      python310
+      python310Packages.pip
+      python310Packages.virtualenv
       nmap
+      awscli2
       ripgrep
       tmux
       tmuxinator
       neovim #-nightly
       reattach-to-user-namespace
       jq
-      hexedit
       yabai-v4
       skhd
       sshpass
       yarn
-      spotify-tui
       dig
       dive
-      catimg
+      imgcat
       gnugrep # needed by direnv
-      vault
-      yq
       asciinema
       enpass-cli
       gh
-      (python39.withPackages (pp: with pp; [
-        pynvim
-      ]))
       gcc
+      comma
+      nodejs-16_x
+      nodePackages.typescript-language-server
+      kubectl
+      skaffold
+      kubernetes-helm
+      pandoc
+      texlive.combined.scheme-small
+      login_password
     ];
   };
+
+  xdg.configFile."nix/nix.conf".text = ''
+experimental-features = nix-command flakes
+substituters = https://cache.nixos.org https://srid.cachix.org
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= srid.cachix.org-1:MTQ6ksbfz3LBMmjyPh0PLmos+1x+CdtJxA/J2W+PQxI=
+  '';
 
   programs.zsh = {
     enable = true;

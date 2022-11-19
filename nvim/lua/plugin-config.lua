@@ -9,7 +9,6 @@ end
 
 local packer = require('packer')
 local util = require('packer.util')
-local use = packer.use
 
 -- Initialize with some variation to keep things in the same folder structure
 packer.init({
@@ -17,20 +16,81 @@ packer.init({
   plugin_package = 'plugins'
 });
 
+local use = packer.use
+
+use {'/wbthomason/packer.nvim'}
+use {'navarasu/onedark.nvim',
+  config = function () require 'rc.colorscheme' end
+}
 use 'tpope/vim-fugitive'
-use 'navarasu/onedark.nvim'
-use 'nvim-treesitter/nvim-treesitter'
-use 'tpope/vim-obsession'
-use 'neovim/nvim-lspconfig'
-use 'williamboman/nvim-lsp-installer'
+use {'tpope/vim-obsession'}
 use 'junegunn/fzf.vim'
-use 'tpope/vim-obsessionm'
-use 'protex/better-digraphs.nvim'
-use 'protex/home-manager.nvim'
-use {
-  'nvim-telescope/telescope.nvim',
-  requires={
+use {'~/code/better-digraphs.nvim',
+  config = function() require 'plugins.better-digraphs-config' end,
+  requires = {
     'nvim-lua/plenary.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   }
 }
+use {'~/code/home-manager.nvim',
+  config = function() require 'home-manager'.setup() end,
+  requires = {
+    'nvim-lua/plenary.nvim'
+  }
+}
+use {
+  'nvim-telescope/telescope.nvim',
+  config = function() require 'plugins.telescope-config' end,
+  requires={
+    'nvim-lua/plenary.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  },
+}
+use {
+  'norcalli/nvim-colorizer.lua',
+  opt = true,
+  cmd = "ColorizerToggle",
+  config = function ()
+    require 'colorizer'.setup()
+  end
+}
+use {'pwntester/octo.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    'kyazdani42/nvim-web-devicons',
+  },
+  config = function ()
+    require 'octo'.setup({
+      github_hostname = "git.viasat.com"
+    })
+  end
+}
+use {'tpope/vim-rhubarb',
+  config = function()
+    vim.g.github_enterprise_urls = {'https://git.viasat.com'}
+  end
+}
+use 'tpope/vim-dadbod'
+use 'kristijanhusak/vim-dadbod-ui'
+use {
+  {"williamboman/mason.nvim",
+    config = function() require("mason").setup() end
+  },
+  {"williamboman/mason-lspconfig.nvim",
+    config = function() require("mason-lspconfig").setup() end
+  },
+  {'neovim/nvim-lspconfig',
+    config = function() require 'plugins.lsp.init' end
+  }
+}
+use {
+    'nvim-treesitter/nvim-treesitter',
+    config = function() require 'plugins.tree-sitter' end,
+    run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+    end,
+}
+
+

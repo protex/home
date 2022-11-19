@@ -43,7 +43,6 @@ end, {})
 enable_relative_number_toggle()
 
 vim.cmd [[highlight ColorColumn ctermbg=0 guibg=maroon]]
-vim.cmd [[colorscheme onedark]]
 vim.cmd [[syntax on]]
 
 vim.o.number = true
@@ -53,3 +52,4 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.softtabstop = 2
+vim.o.wrap = 0

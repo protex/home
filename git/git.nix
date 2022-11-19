@@ -12,5 +12,6 @@ in
     name = ${gitConfig.name}
     [alias]
     root = rev-parse --show-toplevel
+    ggpush = push -u origin HEAD
   '';
 }
