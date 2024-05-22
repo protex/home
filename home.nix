@@ -22,7 +22,7 @@ let
 
   yabai-v4 = pkgs.stdenv.mkDerivation rec {
     name = "yabai";
-    version = "4.0.0";
+    version = "5.0.6";
 
     src = ./yabai;
 
@@ -57,6 +57,7 @@ with builtins; {
     ./yabai.nix
     ./skhd.nix
     ./git/git.nix
+    ./kitty/kitty.nix
   ];
 
   home = {
@@ -94,14 +95,16 @@ with builtins; {
       gh
       gcc
       comma
-      nodejs-16_x
+      nodejs-18_x
       nodePackages.typescript-language-server
+      nodePackages.pyright
       kubectl
       skaffold
       kubernetes-helm
       pandoc
       texlive.combined.scheme-small
       login_password
+      utm
     ];
   };
 
@@ -157,5 +160,4 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
   };
 
   home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
-
 }

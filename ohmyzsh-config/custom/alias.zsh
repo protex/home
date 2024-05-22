@@ -1,6 +1,6 @@
 alias vim="nvim"
 alias vi="nvim"
-alias ls="ls -lAhG"
+alias ls="ls -lAhHG"
 alias resource="source ~/.zshrc"
 alias mux="tmuxinator"
 alias psgrep="ps aux | grep -v grep | grep"

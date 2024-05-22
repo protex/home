@@ -54,7 +54,7 @@ local lsp_config = {
       server_name = 'jsonls'
     },
     python_lsp = {
-      server_name = 'pylsp',
+      server_name = 'pyright',
     },
   }
 }
