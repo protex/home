@@ -9,7 +9,6 @@ let
     '';
   };
 
-  userConfig = import ./user.nix {};
   gitConfig = import ./git/git.nix {};
 
   yabai-v4 = pkgs.stdenv.mkDerivation rec {
@@ -149,5 +148,5 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
     recursive = true;
   };
 
-  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${userConfig.homeDirectory}/.tmux/conf.d/tmux.conf";
+  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
 }
