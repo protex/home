@@ -11,7 +11,7 @@ in
     root = rev-parse --show-toplevel
     ggpush = push -u origin HEAD
     [include]
-      path = ${config.home.homeDirectory}/.config/.secret/.gitconfig
+      path = ${config.home.homeDirectory}/.config/git/.secret/.gitconfig
   '';
 
   home.activation.git = lib.hm.dag.entryAfter ["writeBoundary"] ''
