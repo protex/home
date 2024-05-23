@@ -32,12 +32,6 @@ use {'~/code/better-digraphs.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   }
 }
-use {'~/code/home-manager.nvim',
-  config = function() require 'home-manager'.setup() end,
-  requires = {
-    'nvim-lua/plenary.nvim'
-  }
-}
 use {
   'nvim-telescope/telescope.nvim',
   config = function() require 'plugins.telescope-config' end,

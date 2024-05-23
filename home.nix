@@ -1,13 +1,5 @@
-{ config, pkgs, lib, darwin, xxd, Foundation, ... }:
+{ config, pkgs, ... }:
 let 
-  pkgs = (import <nixpkgs> {
-    # overlays = [
-    #   (import (builtins.fetchTarball {
-    #     url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    #   }))
-    # ];
-  });
-
   login_password = pkgs.stdenv.mkDerivation rec {
     name = "login_password";
     src = ./bin;
@@ -62,8 +54,6 @@ with builtins; {
 
   home = {
     stateVersion = "21.11";
-    homeDirectory = userConfig.homeDirectory;
-    username = userConfig.username;
 
     sessionVariables = {
       EDITOR = "nvim";
@@ -159,5 +149,5 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
     recursive = true;
   };
 
-  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.tmux/conf.d/tmux.conf";
+  home.file.".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${userConfig.homeDirectory}/.tmux/conf.d/tmux.conf";
 }

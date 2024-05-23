@@ -6,11 +6,11 @@
       KeepAlive = true;
       Label = "yabai";
       ProgramArguments = [
-        "${config.home.homeDirectory}/.nix-profile/bin/yabai"
+        "${pkgs.yabai}/bin/yabai"
         "--verbose"
       ];
       EnvironmentVariables = {
-        PATH = "${config.home.homeDirectory}/.nix-profile/bin/:/usr/bin:/bin:/usr/sbin:/sbin";
+        PATH = "${pkgs.yabai}/bin/:/usr/bin:/bin:/usr/sbin:/sbin";
       };
       StandardOutPath = "${config.home.homeDirectory}/var/log/yabai/yabai.out.log";
       StandardErrorPath = "${config.home.homeDirectory}/var/log/yabai/yabai.err.log";

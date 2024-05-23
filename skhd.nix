@@ -4,11 +4,11 @@
     config = {
       Label = "skhd";
       ProgramArguments = [
-        "${config.home.homeDirectory}/.nix-profile/bin/skhd"
+        "${pkgs.skhd}/bin/skhd"
         "--verbose"
       ];
       EnvironmentVariables = {
-        PATH = "${config.home.homeDirectory}/.nix-profile/bin/:/usr/local/bin";
+        PATH = "${pkgs.skhd}/bin/:/usr/local/bin";
       };
       RunAtLoad = true;
       StandardOutPath = "${config.home.homeDirectory}/var/log/skhd/skhd.out.log";
