@@ -2,14 +2,14 @@
   description = "Example Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -25,10 +25,16 @@
 
       # Auto upgrade nix package and the daemon service.
       services.nix-daemon.enable = true;
-      # nix.package = pkgs.nix;
+      nix.package = pkgs.nix;
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
+
+      nix.nixPath = [
+        { nixpkgs = "${pkgs.path}"; }
+        { nixos-config = "${toString ./flake.nix}"; }
+        { darwin-config = "$HOME/.nixpkgs/darwin-configuration.nix"; }
+      ];
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;  # default shell on catalina
@@ -47,7 +53,19 @@
         keyboard = {
           enableKeyMapping = true;
           remapCapsLockToControl = true;
-          swapLeftCommandAndLeftAlt = true;
+        };
+
+        defaults.dock = {
+          autohide = true;
+          minimize-to-application = true;
+          orientation = "right";
+          show-recents = false;
+        };
+
+        defaults.finder = {
+          AppleShowAllFiles = true;
+          AppleShowAllExtensions = true;
+          ShowPathbar = true;
         };
 
         # Set Git commit hash for darwin-version.

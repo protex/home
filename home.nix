@@ -22,21 +22,6 @@ let
       cp ./bin/yabai $out/bin/yabai
     '';
   };
-
-  enpass-cli = pkgs.stdenv.mkDerivation rec {
-    name = "enpass-cli";
-    version = "1.6.0";
-
-    src = pkgs.fetchzip {
-      url = "https://github.com/hazcod/enpass-cli/releases/download/v${version}/enpass-cli_${version}_darwin_amd64.zip";
-      sha256 = "sha256-z6GLR9vo8jC0SrsacbMtoedVnXQP/Pq3GQ0jzuKxIxE=";
-    };
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp ./enpasscli $out/bin/enpass
-    '';
-  };
 in
 with builtins; {
   # Let Home Manager install and manage itself.
@@ -58,8 +43,7 @@ with builtins; {
       EDITOR = "nvim";
     };
     packages = with pkgs; [
-      nixUnstable
-      nix-prefetch-scripts
+      nixVersions.latest
       python310
       python310Packages.pip
       python310Packages.virtualenv
@@ -77,29 +61,20 @@ with builtins; {
       yarn
       dig
       dive
-      imgcat
       gnugrep # needed by direnv
-      asciinema
-      enpass-cli
-      gh
       gcc
-      comma
-      nodejs-18_x
+      nodejs
       nodePackages.typescript-language-server
       nodePackages.pyright
-      kubectl
-      skaffold
-      kubernetes-helm
-      pandoc
-      texlive.combined.scheme-small
-      login_password
       utm
+      mysql
+      docker
     ];
   };
 
   xdg.configFile."nix/nix.conf".text = ''
 experimental-features = nix-command flakes
-substituters = https://cache.nixos.org https://srid.cachix.org
+trusted-substituters = https://cache.nixos.org https://srid.cachix.org
 trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= srid.cachix.org-1:MTQ6ksbfz3LBMmjyPh0PLmos+1x+CdtJxA/J2W+PQxI=
   '';
 

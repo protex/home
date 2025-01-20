@@ -19,6 +19,7 @@ packer.init({
 local use = packer.use
 
 use {'/wbthomason/packer.nvim'}
+use {'/github/copilot.vim'}
 use {'navarasu/onedark.nvim',
   config = function () require 'rc.colorscheme' end
 }
@@ -48,18 +49,6 @@ use {
     require 'colorizer'.setup()
   end
 }
-use {'pwntester/octo.nvim',
-  requires = {
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    'kyazdani42/nvim-web-devicons',
-  },
-  config = function ()
-    require 'octo'.setup({
-      github_hostname = "git.viasat.com"
-    })
-  end
-}
 use {'tpope/vim-rhubarb',
   config = function()
     vim.g.github_enterprise_urls = {'https://git.viasat.com'}
@@ -72,9 +61,11 @@ use {
     config = function() require("mason").setup() end
   },
   {"williamboman/mason-lspconfig.nvim",
+    requires = 'williamboman/mason.nvim',
     config = function() require("mason-lspconfig").setup() end
   },
   {'neovim/nvim-lspconfig',
+    requires = 'williamboman/mason-lspconfig.nvim',
     config = function() require 'plugins.lsp.init' end
   }
 }

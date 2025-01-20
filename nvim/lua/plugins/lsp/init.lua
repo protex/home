@@ -37,7 +37,7 @@ local lsp_config = {
   },
   servers = {
     lua = {
-      server_name = 'sumneko_lua',
+      server_name = 'lua_ls',
       settings = {
         Lua = {
           diagnostics = {
@@ -48,7 +48,7 @@ local lsp_config = {
       }
     },
     typescript = {
-      server_name = 'tsserver'
+      server_name = 'ts_ls'
     },
     json = {
       server_name = 'jsonls'
