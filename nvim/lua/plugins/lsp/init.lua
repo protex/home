@@ -4,6 +4,15 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+vim.diagnostic.config({
+  virtual_text = true,  -- Show diagnostics inline
+  signs = true,         -- Show signs in the gutter
+  underline = true,     -- Underline issues
+  update_in_insert = false, -- Don’t update diagnostics while typing
+  severity_sort = true, -- Sort by severity
+})
+vim.lsp.set_log_level("debug")
+
 local default_on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -31,6 +40,7 @@ end
 local lsp_config = {
   default_config = {
     on_attach = default_on_attach,
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
     flags = {
       debounce_text_changes = 150
     }
@@ -54,7 +64,16 @@ local lsp_config = {
       server_name = 'jsonls'
     },
     python_lsp = {
-      server_name = 'pyright',
+      server_name = 'pylsp',
+      settings = {
+        pylsp = {
+          plugins = {
+            pyls_mypy = {
+              enabled = true,
+            }
+          }
+        }
+      }
     },
   }
 }
@@ -67,7 +86,6 @@ local function get_server_config(config_name)
   return config
 end
 
--- Setup servers, will be auto installed by mason-lspconfig
 for config_name, server_config in pairs(lsp_config.servers) do
   require('lspconfig')[server_config.server_name].setup(
     get_server_config(config_name)

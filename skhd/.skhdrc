@@ -148,20 +148,23 @@
 #           yabai -m window --toggle pip
 
 # Moving Windows
-ctrl + shift + alt - h : yabai -m window --swap west || \
-( yabai -m display --focus west ; \
-  yabai -m window last --insert east ; \
-  yabai -m display --focus east ; \
-  yabai -m window --display west ; \
-  yabai -m display --focus west )
+ctrl + shift + alt - h : yabai -m window --swap west || (yabai -m window --display west ; yabai -m display --focus west)
 ctrl + shift + alt - j : yabai -m window --swap south || (yabai -m window --display south ; yabai -m display --focus south)
 ctrl + shift + alt - k : yabai -m window --swap north || (yabai -m window --display north ; yabai -m display --focus north)
-ctrl + shift + alt - l : yabai -m window --swap east || \
-( yabai -m display --focus east ; \
-  yabai -m window first --insert west ; \
-  yabai -m display --focus west ; \
-  yabai -m window --display east ; \
-  yabai -m display --focus east)
+ctrl + shift + alt - l : yabai -m window --swap east || (yabai -m window --display east ; yabai -m display --focus east)
+
+# ctrl + shift + alt - h : yabai -m window --swap west || \
+# ( yabai -m display --focus west ; \
+#   yabai -m window last --insert east ; \
+#   yabai -m display --focus east ; \
+#   yabai -m window --display west ; \
+#   yabai -m display --focus west )
+# ctrl + shift + alt - l : yabai -m window --swap east || \
+# ( yabai -m display --focus east ; \
+#   yabai -m window first --insert west ; \
+#   yabai -m display --focus west ; \
+#   yabai -m window --display east ; \
+#   yabai -m display --focus east)
 
 shift + ctrl - h : yabai -m window --stack west || (yabai -m window --display west ; yabai -m display --focus west)
 shift + ctrl - j : yabai -m window --stack south || (yabai -m window --display south ; yabai -m display --focus south)

@@ -77,5 +77,25 @@ use {
 --         ts_update()
 --     end,
 -- }
-
-
+use {
+  "CopilotC-Nvim/CopilotChat.nvim",
+  config = function()
+    require("CopilotChat").setup({
+      mappings = {
+        complete = {
+          insert = "<C-space>"
+        }
+      },
+      window = {
+        border = "rounded",
+        width = 80,
+        height = 20,
+      },
+    })
+  end,
+  requires = {
+    { "github/copilot.vim" },
+    { "nvim-lua/plenary.nvim", branch = "master" }
+  },
+  run = "make tiktoken"
+}

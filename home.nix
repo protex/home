@@ -44,9 +44,9 @@ with builtins; {
     };
     packages = with pkgs; [
       nixVersions.latest
-      python310
-      python310Packages.pip
-      python310Packages.virtualenv
+      python312
+      python312Packages.pip
+      python312Packages.virtualenv
       nmap
       awscli2
       ripgrep
@@ -65,10 +65,9 @@ with builtins; {
       gcc
       nodejs
       nodePackages.typescript-language-server
-      nodePackages.pyright
       utm
-      mysql
-      docker
+      mariadb
+      postgresql
     ];
   };
 
